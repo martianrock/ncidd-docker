@@ -28,7 +28,7 @@ RUN export DEBIAN_FRONTEND=noninteractive &&\
     rm -rf /var/lib/apt/lists/* && \
     cp -R /etc/ncid /root/ncid-conf-default && \
     mkdir /etc/service/ncidd && \
-    echo "#!/bin/bash\nexec /usr/sbin/ncidd -D 2>&1" > /etc/service/ncidd/run && \
+    echo "#!/bin/bash\nexec /usr/sbin/ncidd -D -L /dev/null 2>&1" > /etc/service/ncidd/run && \
     chmod +x /etc/service/ncidd/run && \
     echo "#!/bin/bash\n[ \"\$(ls -A /etc/ncid)\" ] && echo \"Not rebuilding ncid config directory\" || (echo \"Rebuilding default ncid config\" && mkdir -p /etc/ncid && cp -R /root/ncid-conf-default/* /etc/ncid)" > /etc/my_init.d/00_rebuild_ncid_config && \
     chmod +x /etc/my_init.d/00_rebuild_ncid_config
