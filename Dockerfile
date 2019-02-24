@@ -20,7 +20,7 @@ COPY --from=downloader /root/ncid_${NCID_VERSION}-1_${ARCH}.deb /root
 RUN export DEBIAN_FRONTEND=noninteractive &&\
     cd /root && \
     apt-get update -qq && \
-    apt-get install -y --no-install-recommends perl && \
+    apt-get install -y --no-install-recommends perl netcat-traditional && \
     dpkg -i ncid_${NCID_VERSION}-1_${ARCH}.deb && \
     apt-get install -f -y --no-install-recommends &&\
     rm ncid_${NCID_VERSION}-1_${ARCH}.deb && \
@@ -32,3 +32,6 @@ RUN export DEBIAN_FRONTEND=noninteractive &&\
     chmod +x /etc/service/ncidd/run && \
     echo "#!/bin/bash\n[ \"\$(ls -A /etc/ncid)\" ] && echo \"Not rebuilding ncid config directory\" || (echo \"Rebuilding default ncid config\" && mkdir -p /etc/ncid && cp -R /root/ncid-conf-default/* /etc/ncid)" > /etc/my_init.d/00_rebuild_ncid_config && \
     chmod +x /etc/my_init.d/00_rebuild_ncid_config
+
+HEALTHCHECK --interval=3m --timeout=10s \
+    CMD echo -e "HELLO: IDENT: docker-healthcheck-client\nHELLO: CMD: no_log\nGOODBYE\n" | nc localhost 3333 | grep ncidd || exit 1
