@@ -33,4 +33,4 @@ RUN export DEBIAN_FRONTEND=noninteractive &&\
     chmod +x /etc/my_init.d/00_rebuild_ncid_config
 
 HEALTHCHECK --interval=3m --timeout=10s \
-    CMD echo -e "HELLO: IDENT: docker-healthcheck-client\nHELLO: CMD: no_log\nGOODBYE\n" | nc localhost 3333 | grep ncidd || exit 1
+    CMD echo -e "HELLO: IDENT: docker-healthcheck-client\nHELLO: CMD: no_log\nGOODBYE\n" | nc 127.0.0.1 3333 | grep ncidd || exit 1
