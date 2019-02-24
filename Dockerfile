@@ -32,5 +32,5 @@ RUN export DEBIAN_FRONTEND=noninteractive &&\
     echo "#!/bin/bash\n[ \"\$(ls -A /etc/ncid)\" ] && echo \"Not rebuilding ncid config directory\" || (echo \"Rebuilding default ncid config\" && mkdir -p /etc/ncid && cp -R /root/ncid-conf-default/* /etc/ncid)" > /etc/my_init.d/00_rebuild_ncid_config && \
     chmod +x /etc/my_init.d/00_rebuild_ncid_config
 
-HEALTHCHECK --interval=3m --timeout=10s \
+HEALTHCHECK --interval=1m --timeout=10s \
     CMD echo -e "HELLO: IDENT: docker-healthcheck-client\nHELLO: CMD: no_log\nGOODBYE\n" | nc 127.0.0.1 3333 | grep ncidd || exit 1
