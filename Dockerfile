@@ -23,7 +23,6 @@ RUN export DEBIAN_FRONTEND=noninteractive &&\
     apt-get install -y --no-install-recommends perl netcat-traditional && \
     dpkg -i ncid_${NCID_VERSION}-1_${ARCH}.deb && \
     apt-get install -f -y --no-install-recommends &&\
-    rm ncid_${NCID_VERSION}-1_${ARCH}.deb && \
     apt-get purge -y --auto-remove && \
     rm -rf /var/lib/apt/lists/* && \
     cp -R /etc/ncid /root/ncid-conf-default && \
