@@ -20,7 +20,7 @@ COPY --from=downloader /root/ncid_${NCID_VERSION}-1_${ARCH}.deb /root
 RUN export DEBIAN_FRONTEND=noninteractive &&\
     cd /root && \
     apt-get update -qq && \
-    apt-get install -y --no-install-recommends perl netcat-traditional && \
+    apt-get install -y --no-install-recommends perl netcat-traditional tzdata && \
     dpkg -i ncid_${NCID_VERSION}-1_${ARCH}.deb && \
     apt-get install -f -y --no-install-recommends &&\
     apt-get purge -y --auto-remove && \
